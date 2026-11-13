@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Where Should AI Stop? Exploratory research on the boundary between AI execution and human judgment, from video editing to care and my own work.">
+<meta property="og:title" content="Where Should AI Stop?"><meta property="og:description" content="Exploratory research on the boundary between AI execution and human judgment."><meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230E1322%22/%3E%3Cpath d=%22M4 16h12%22 stroke=%22%237D93FF%22 stroke-width=%223%22/%3E%3Cpath d=%22M18 16h10%22 stroke=%22%23F0A868%22 stroke-width=%223%22/%3E%3Cpath d=%22M17 8v16%22 stroke=%22%23fff%22 stroke-width=%222%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<title data-zh="人工智能应该止步何处？">Where Should AI Stop?</title>
+<style>:root{--night:#0E1322;--night2:#121831;--paper:#ECEEF2;--card:#F6F7F9;--ink:#121626;--mute:#596076;--rule:#CDD1DA;
+--ai:#4F6BEA;--hu:#C9732F;--ai-d:#8DA2FF;--hu-d:#F0A868;--d-ink:#EEF0F6;--d-mute:#A2AABD;--d-rule:#2A3150;
+--serif:"Instrument Serif","Noto Serif SC","Songti SC","STSong",Georgia,serif;--sans:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,p,ol,blockquote{margin:0}ol{list-style:none;padding:0}
+a{color:inherit}:focus-visible{outline:2px solid var(--ai);outline-offset:3px;border-radius:2px}
+/* hero */
+.hero{position:relative;min-height:100svh;min-height:100vh;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:linear-gradient(#1A2244,#4A4A78 55%,#D8957A)}
+#sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+.vf{position:absolute;inset:clamp(16px,3vw,36px);pointer-events:none}
+.vf .c{position:absolute;width:26px;height:26px;border-color:rgba(255,255,255,.75);border-style:solid;border-width:0}
+.vf .tl{top:0;left:0;border-top-width:1.5px;border-left-width:1.5px}.vf .tr{top:0;right:0;border-top-width:1.5px;border-right-width:1.5px}
+.vf .bl{bottom:0;left:0;border-bottom-width:1.5px;border-left-width:1.5px}.vf .br{bottom:0;right:0;border-bottom-width:1.5px;border-right-width:1.5px}
+.vf .cross{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.55)) center/1px 100% no-repeat,linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.55)) center/100% 1px no-repeat}
+.hbar{position:absolute;top:clamp(30px,4.5vw,56px);left:clamp(34px,5.5vw,72px);right:clamp(34px,5.5vw,72px);display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.04em;color:rgba(255,255,255,.85)}
+#lang{font:inherit;font-size:12px;color:#fff;background:rgba(14,19,34,.35);border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:6px 13px;cursor:pointer;backdrop-filter:blur(6px)}
+#lang:hover{background:rgba(14,19,34,.6)}
+.htxt{position:relative;padding:0 clamp(34px,5.5vw,72px) clamp(90px,12vh,140px);max-width:1000px}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(64px,11vw,156px);line-height:.92;letter-spacing:-.015em;text-shadow:0 2px 30px rgba(14,19,34,.25)}
+.deck{margin-top:28px;max-width:560px;font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:rgba(255,255,255,.92)}
+.hfoot{position:absolute;bottom:clamp(30px,4.5vw,56px);left:clamp(34px,5.5vw,72px);right:clamp(34px,5.5vw,72px);display:flex;justify-content:space-between;font-size:12px;letter-spacing:.06em;font-variant-numeric:tabular-nums;color:rgba(255,255,255,.75)}
+.hfoot span:first-child:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--hu-d);margin-right:9px;vertical-align:1px}
+/* sections */
+.sec{padding:clamp(72px,10vw,128px) 0;border-top:1px solid var(--rule)}
+.sec.dark{background:var(--night);color:var(--d-ink);border-top:0}
+.wrap{width:min(1120px,calc(100% - 44px));margin:0 auto;display:grid;grid-template-columns:170px minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.lbl{position:sticky;top:28px;display:flex;flex-direction:column;gap:4px;font-size:12px}
+.lbl .tc{font-variant-numeric:tabular-nums;letter-spacing:.06em;color:var(--mute)}
+.lbl .nm{font-weight:600}
+.dark .lbl .tc{color:var(--d-mute)}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,64px);line-height:1.02;letter-spacing:-.01em;max-width:18ch;margin-bottom:28px}
+h2 em{font-style:italic}
+.dark h2 em:first-child{color:var(--ai-d)}.dark h2 em:last-child{color:var(--hu-d)}
+.main>p{max-width:66ch;margin-bottom:16px;color:#2E3448}
+.dark .main>p{color:#C5CBDA}
+.main>p.lead{font-size:19px;color:var(--ink)}
+.fine{font-size:13px!important;color:var(--mute)!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 18px}
+.chip{border:1px solid var(--rule);border-radius:999px;padding:6px 12px;font-size:13px;background:var(--card)}
+/* layers */
+.layers{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);counter-reset:l}
+.layers li{counter-increment:l}.layers a{display:block;height:100%;padding:16px 20px 6px 0;text-decoration:none}
+.layers li+li a{padding-left:20px;border-left:1px solid var(--rule)}
+.layers b{display:block;font-weight:600;font-size:15px;margin-bottom:4px}.layers b:before{content:counter(l) " ";color:var(--hu);font-variant-numeric:tabular-nums}
+.layers span{display:block;font-size:13.5px;line-height:1.45;color:var(--mute)}.layers a:hover b{color:var(--ai)}
+/* timeline */
+.tline{margin-top:44px}
+#finding h2{max-width:21ch}
+.ruler{height:14px;background:repeating-linear-gradient(90deg,var(--d-rule) 0 1px,transparent 1px 12.5%),repeating-linear-gradient(90deg,#3A4266 0 1px,transparent 1px 2.5%) bottom/100% 6px no-repeat;margin-left:44px}
+.track{display:flex;gap:10px;align-items:stretch;margin-top:8px}
+.lane{width:34px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--d-mute);border:1px solid var(--d-rule);border-radius:3px}
+.clips{position:relative;flex:1;display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.clip{min-height:64px;padding:9px 10px;border-radius:3px;font-size:12.5px;line-height:1.3}
+.clip.ai{background:rgba(141,162,255,.16);border-left:2px solid var(--ai-d);color:#DCE2FF}
+.clip.hu{background:rgba(240,168,104,.16);border-left:2px solid var(--hu-d);color:#FFE7D2}
+.cut{position:absolute;left:50%;top:-30px;bottom:-12px;width:2px;margin-left:-1px;background:#fff}
+.cut:before{content:"";position:absolute;top:0;left:-6px;border:7px solid transparent;border-top:9px solid #fff;border-bottom:0}
+.legend{display:flex;gap:22px;margin:20px 0 0 44px;font-size:12.5px;color:var(--d-mute)}
+.legend .k:before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:-1px}
+.legend .ai:before{background:var(--ai-d)}.legend .hu:before{background:var(--hu-d)}
+/* four / three */
+.four{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);margin-top:38px}
+.four>div{padding:20px 20px 8px 0}.four>div+div{padding-left:20px;border-left:1px solid var(--rule)}
+.four b,.three h3{display:block;font-weight:600;font-size:15px;margin-bottom:10px}
+.four p,.three p{font-size:14px;line-height:1.55;color:var(--mute)}
+.pull{font-family:var(--serif);font-size:clamp(28px,3.6vw,44px);line-height:1.12;max-width:22ch;margin:48px 0 0!important;color:var(--ink)!important}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
+.three>div{border-top:1px solid var(--ink);padding-top:16px}
+.three small{display:block;font-size:12px;color:var(--hu);margin-bottom:10px}
+.three h3{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.12}
+blockquote{margin-top:56px;font-family:var(--serif);font-size:clamp(32px,4.4vw,56px);line-height:1.08;max-width:20ch;padding-left:22px;border-left:3px solid var(--hu)}
+/* handoff markers */
+.marks{margin-top:46px;display:grid;grid-template-columns:repeat(6,1fr);position:relative;border-top:2px solid var(--d-rule)}
+.marks li{position:relative;padding:22px 14px 0 0}
+.marks li:before{content:"";position:absolute;top:-8px;left:0;width:14px;height:14px;border-radius:50%;background:var(--night);border:2px solid var(--hu-d)}
+.marks li.ai:before{border-color:var(--ai-d);background:var(--ai-d)}
+.marks b{display:block;font-weight:600;font-size:14px;margin-bottom:6px;color:#fff}
+.marks li.ai b{color:var(--ai-d)}
+.marks span{display:block;font-size:13px;line-height:1.45;color:var(--d-mute)}
+.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.checks>div{border:1px solid var(--d-rule);border-radius:4px;padding:18px;background:var(--night2)}
+.checks small{display:block;font-size:12px;color:var(--hu-d);margin-bottom:8px}
+.checks b{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.2;color:#fff}
+/* compare */
+.compare{margin:36px 0 32px;border-top:1px solid #3A4266}
+.crow{display:grid;grid-template-columns:120px 1fr 1fr;gap:24px;padding:15px 0;border-bottom:1px solid var(--d-rule);font-size:14px;line-height:1.5}
+.crow b{font-size:13px;font-weight:600;color:#fff}.crow .v{color:var(--d-mute)}.crow .c{color:#fff}
+.chead span{font-size:12px;color:var(--hu-d)!important}.chead span:first-of-type{color:var(--ai-d)!important}
+.go{display:inline-block;margin-top:6px;color:#fff;font-size:14px;text-decoration:none;border-bottom:1px solid var(--hu-d);padding-bottom:3px}.go:hover{color:var(--hu-d)}
+/* loop */
+.loop{margin-top:38px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);counter-reset:s}
+.loop li{counter-increment:s;padding:18px 18px 8px 0}.loop li+li{padding-left:18px;border-left:1px solid var(--rule)}
+.loop b{display:block;font-weight:600;font-size:14.5px;line-height:1.3;margin-bottom:10px;min-height:2.6em}
+.loop b:before{content:"0" counter(s);display:block;font-size:12px;font-weight:500;color:var(--mute);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.loop li:first-child b:before{color:var(--ai)}.loop li:last-child b:before{color:var(--hu)}
+.loop p{font-size:14px;line-height:1.55;color:var(--mute)}
+.after{margin-top:14px!important;font-size:18px;color:var(--ink)!important}
+/* sources */
+.sources{margin-top:20px}.source{display:grid;grid-template-columns:150px 1fr;gap:22px;padding:16px 0;border-top:1px solid var(--rule);font-size:14px}.source:last-child{border-bottom:1px solid var(--rule)}
+.stype{font-size:12px;color:var(--mute)}.source a{text-decoration:none;color:var(--ink)}.source a:hover{color:var(--ai)}.srcnote{font-size:13px;color:var(--mute);margin-top:4px}
+footer{width:min(1120px,calc(100% - 44px));margin:0 auto;padding:28px 0 90px;font-size:12.5px;color:var(--mute);border-top:1px solid var(--rule)}
+/* scrubber */
+.scrub{position:fixed;left:0;right:0;bottom:0;z-index:20;height:36px;background:rgba(14,19,34,.88);backdrop-filter:blur(10px);transform:translateY(100%);transition:transform .35s ease}
+.scrub.on{transform:none}
+.seg{display:flex;height:100%}
+.seg a{flex:1;display:flex;align-items:center;padding:0 10px;font-size:11.5px;color:#A2AABD;text-decoration:none;border-left:1px solid #2A3150;white-space:nowrap;overflow:hidden}
+.seg a:hover,.seg a.cur{color:#fff}.seg a.cur{background:rgba(240,168,104,.12)}
+#head{position:absolute;top:0;bottom:0;width:2px;background:var(--hu-d);left:0;pointer-events:none}
+#head:before{content:"";position:absolute;top:0;left:-5px;border:6px solid transparent;border-top:7px solid var(--hu-d);border-bottom:0}
+/* chinese */
+html:lang(zh-CN) .hero h1{font-size:clamp(52px,8.4vw,116px);line-height:1.12;letter-spacing:.02em;font-weight:500}
+html:lang(zh-CN) h2{font-size:clamp(30px,4vw,50px);line-height:1.25;letter-spacing:.01em;font-weight:500;max-width:20em}
+html:lang(zh-CN) .pull,html:lang(zh-CN) blockquote{font-size:clamp(24px,3vw,38px);line-height:1.4;max-width:20em;font-weight:500}
+html:lang(zh-CN) .three h3,html:lang(zh-CN) .checks b{font-size:20px;line-height:1.35;font-weight:500}
+html:lang(zh-CN) h2 em{font-style:normal}
+html:lang(zh-CN) .main>p{line-height:1.85}
+@media(max-width:820px){
+ .wrap{grid-template-columns:1fr;gap:18px}.lbl{position:static;flex-direction:row;gap:12px}
+ .layers,.four,.three,.loop,.checks{grid-template-columns:1fr}
+ .layers li+li a,.four>div+div,.loop li+li{padding-left:0;border-left:0}
+ .layers a,.four>div,.loop li{border-bottom:1px solid var(--rule)}.loop b{min-height:0}
+ .clips{grid-template-columns:repeat(4,1fr)}.cut{display:none}.ruler{display:none}
+ .marks{grid-template-columns:1fr 1fr;row-gap:28px;border-top:0}.marks li{border-top:2px solid var(--d-rule)}
+ .crow{grid-template-columns:1fr;gap:4px}.chead{display:none}
+ .crow .v:before,.crow .c:before{display:block;font-size:11px;margin-top:6px}
+ .crow .v:before{content:"In a video edit";color:var(--ai-d)}.crow .c:before{content:"In mental health care";color:var(--hu-d)}
+ html:lang(zh-CN) .crow .v:before{content:"在视频剪辑中"}html:lang(zh-CN) .crow .c:before{content:"在心理健康照护中"}
+ .source{grid-template-columns:1fr;gap:4px}.seg a span{display:none}.seg a{padding:0}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scrub{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero" id="top"><canvas id="sky" aria-hidden="true"></canvas><div class="vf" aria-hidden="true"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i><i class="cross"></i></div><div class="hbar"><span class="hk" data-zh="探索性研究">Exploratory research</span><button id="lang" type="button" lang="zh-CN" aria-label="切换到中文">中文</button></div><div class="htxt"><h1 data-zh="人工智能&lt;br&gt;应该止步何处？">Where should<br>AI stop?</h1><p class="deck" data-zh="随着 AI 承担越来越多的工作，哪些决定应当留给人？我从视频剪辑开始，因为正是在剪辑里，我第一次明白一个剪辑点里藏着多少判断，然后顺着这个问题一路追问下去。">As AI takes on more of the work, which decisions should stay with people? I began with video editing, where I first learned how much judgment sits inside a single cut, and followed the question outward.</p></div><div class="hfoot" aria-hidden="true"><span id="tcode">00:00:00:00</span><span>24 fps</span></div></header>
+<section id="prologue" class="sec " data-clip="0"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">00:00</span><span class="nm" data-zh="序">Prologue</span></div></div><div class="main"><h2 data-zh="我是通过镜头走到这个问题面前的。">I came to this question through a camera.</h2><p data-zh="在写代码之前，我先学会了做影像。大学时我拍舞蹈和戏剧，研究生读传媒，在纽约 THIRTEEN/WNET 做了九个月制作，在腾讯视频工作了三个月，还自编自导了短片《It’s Just a Cold》，讲一个大学生把抑郁当成了一场普通的感冒。片中的歌《与自己对话》也是我写的，后来以艺名安玥在 QQ 音乐发表。">Before I wrote code, I made images. I photographed dance and theatre in college, studied media in graduate school, worked in production for nine months at THIRTEEN/WNET in New York and for three months at Tencent Video, and wrote and directed a short film, <i>It’s Just a Cold</i>, about a college student who mistakes depression for a passing cold. I also wrote its song, “与自己对话” (Speaking to Myself), later released on QQ Music under my artist name, 安玥.</p><p class="lead" data-zh="剪辑让我明白，一个剪辑点里藏着多少判断：镜头从哪里开始，一段沉默停留多久，观众最先看到什么。当 AI 开始替人下这些剪刀，我想知道，其中哪些决定，人们仍然想亲手来做。">Editing taught me how many judgments sit inside one cut: where a shot begins, how long a silence holds, what the audience sees first. When AI began to make those cuts, I wanted to know which of them people would still want to make themselves.</p><ol class="layers"><li><a href="#question"><b data-zh="在一条工作流里">In a workflow</b><span data-zh="AI 剪辑视频时，人们想留住哪些创作决定">Which creative decisions people keep when AI edits video</span></a></li><li><a href="#beyond"><b data-zh="在所有产品里">Across products</b><span data-zh="当关乎的是人，AI 应该走多远">How far AI should go when the stakes are human</span></a></li><li><a href="#loop"><b data-zh="在我自己的工作里">In my own work</b><span data-zh="从全部交给 AI，到始终在场">From handing everything to AI to staying in the loop</span></a></li></ol></div></div></section>
+<section id="question" class="sec " data-clip="1"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">00:12</span><span class="nm" data-zh="问题">Question</span></div></div><div class="main"><h2 data-zh="自动化减少的不只是工作，也可能是决定。">Automation removes work. It can also remove decisions.</h2><p data-zh="生成式视频工具如今已经能转写、清理音频、拼出粗剪，甚至生成整段画面。在关于这些工具的公开讨论中，创作者欢迎 AI 接手重复性的执行工作，却在节奏、表达、叙事、风格和最终决定上划出了更清晰的界线。">Generative video tools can now transcribe, clean up audio, assemble a rough cut and generate whole scenes. In public discussions of these tools, creators welcomed help with repetitive execution. They drew firmer lines around pacing, voice, story, style and the final call.</p><div class="chips"><span class="chip" data-zh="创作者讨论">Creator discussions</span><span class="chip" data-zh="亲身工作流记录">First-person workflows</span><span class="chip" data-zh="行业视角">Industry framing</span><span class="chip" data-zh="反例">Counterexamples</span></div><p class="fine" data-zh="这是一项基于公开资料的探索性综合分析，并非具有代表性的样本。它的发现是有待一手研究检验的假设。">An exploratory synthesis of public material, not a representative sample. Its findings are hypotheses to test with primary research.</p></div></div></section>
+<section id="finding" class="sec dark" data-clip="2"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">01:04</span><span class="nm" data-zh="发现">Finding</span></div></div><div class="main"><h2 data-zh="人们很愿意把&lt;em&gt;执行&lt;/em&gt;交给 AI，&lt;br&gt;但交出&lt;em&gt;判断&lt;/em&gt;时，会谨慎得多。">People readily delegate <em>effort</em>. They are more selective about delegating <em>judgment</em>.</h2><p data-zh="界线落在哪里，与其说取决于 AI 做了多少，不如说取决于它替人做了什么。">Where the line falls depends less on how much work AI does than on what kind of work it takes over.</p><div class="tline" role="img" aria-label="Eight editing tasks on a timeline. The first four are commonly delegated to AI; the last four people prefer to keep."><div class="ruler" aria-hidden="true"></div><div class="track"><span class="lane" aria-hidden="true">V1</span><div class="clips"><span class="clip ai" data-zh="转写">Transcribe</span><span class="clip ai" data-zh="清理音频">Clean audio</span><span class="clip ai" data-zh="删除口头语">Remove filler</span><span class="clip ai" data-zh="粗剪">Rough cut</span><span class="clip hu" data-zh="选择开场">Choose opening</span><span class="clip hu" data-zh="把握节奏">Shape pacing</span><span class="clip hu" data-zh="确定基调">Set tone</span><span class="clip hu" data-zh="最终决定">Final call</span><i class="cut" aria-hidden="true"></i></div></div><div class="legend"><span class="k ai" data-zh="乐于交给 AI">Readily handed to AI</span><span class="k hu" data-zh="留给人来判断">Kept for human judgment</span></div></div></div></div></section>
+<section id="boundary" class="sec " data-clip="3"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">01:48</span><span class="nm" data-zh="边界">Boundary</span></div></div><div class="main"><h2 data-zh="什么会移动这条界线？">What moves the boundary?</h2><p data-zh="同一个人，可能在这一步欣然接受大量自动化，在下一步却不愿让 AI 替自己做哪怕一个决定。有四个条件反复出现。">The same person may welcome heavy automation in one step and object to a single AI decision in the next. Four conditions recur.</p><div class="four"><div><b data-zh="利害">Stakes</b><p data-zh="小而可逆的选择容易交出去；后果更大、或承载着创作者自我表达的选择，会受到更仔细的审视。">Small, reversible choices are easy to hand over. Choices with consequences, or that carry the creator’s identity, get closer scrutiny.</p></div><div><b data-zh="可修改性">Editability</b><p data-zh="只要能随时接手、改掉一处并保留其余部分，人们就能接受并不完美的输出。">Imperfect output is acceptable when people can step in, fix one part and keep the rest.</p></div><div><b data-zh="意图">Intent</b><p data-zh="一旦某个决定承载着节奏、基调、叙事、表达或风格，自动化就变得敏感。">Automation becomes sensitive once a decision carries pacing, tone, story, voice or style.</p></div><div><b data-zh="授权">Authority</b><p data-zh="当 AI 的行动超出了人们认为自己请求或同意的范围，信任破裂得最快。">Trust breaks fastest when AI acts beyond what a person believes they asked for or approved.</p></div></div><p class="pull" data-zh="AI 自动化了多少，并不等于人交出了多少控制权。">How much AI automates is not the same as how much control people give up.</p></div></div></section>
+<section id="handoff" class="sec dark" data-clip="4"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">02:30</span><span class="nm" data-zh="交接">Handoff</span></div></div><div class="main"><h2 data-zh="控制权，是在一次次交接中协商出来的。">Control is negotiated at the handoffs.</h2><p data-zh="矛盾很少是简单的“AI 还是人”。它出现在交接的时刻：AI 开始行动时，人需要介入时，以及作品定稿时。">The tension was rarely “AI or human”. It appeared at the moments of transfer: when AI starts acting, when a person needs to step in, and when the work becomes final.</p><ol class="marks"><li class="hu"><b data-zh="意图">Intent</b><span data-zh="我想做出什么？">What am I trying to make?</span></li><li class="hu"><b data-zh="委托">Delegate</b><span data-zh="哪些交给 AI？">What should AI handle?</span></li><li class="ai"><b data-zh="执行">Act</b><span data-zh="AI 执行或提出方案。">AI executes or proposes.</span></li><li class="hu"><b data-zh="审阅">Review</b><span data-zh="哪些已经可用？">What worked?</span></li><li class="hu"><b data-zh="介入">Intervene</b><span data-zh="哪里需要改？">What needs to change?</span></li><li class="hu"><b data-zh="确认">Approve</b><span data-zh="这还是我的作品吗？">Is this still mine?</span></li></ol><div class="checks"><div><small data-zh="行动之前">Before action</small><b data-zh="这是我授权的吗？">Did I authorize this?</b></div><div><small data-zh="修改之中">During revision</small><b data-zh="能不能只改错的地方？">Can I change only what is wrong?</b></div><div><small data-zh="完成之时">At completion</small><b data-zh="最后的决定还由我来做吗？">Do I still make the final call?</b></div></div></div></div></section>
+<section id="implications" class="sec " data-clip="5"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">03:16</span><span class="nm" data-zh="启示">Implications</span></div></div><div class="main"><h2 data-zh="不只设计自动化，更要设计交接。">Design the handoff, not only the automation.</h2><p data-zh="对生成式和 AI 辅助的视频工具来说，机会也许不在于让 AI 覆盖更多工作，而在于让 AI 执行与人的判断之间的每一次交接，都清楚而有意识。">For generative and AI-assisted video tools, the opportunity may lie less in covering more of the work with AI and more in making each transfer between AI execution and human judgment deliberate.</p><div class="three"><div><small data-zh="授权">Authorization</small><h3 data-zh="越界之前，先征得同意。">Ask before crossing the boundary.</h3><p data-zh="边界清楚的清理工作可以放心自动化；会增加成本、改变创作意图或覆盖已确认内容的操作，需要明确的同意。">Automate bounded clean-up with confidence. Actions that add cost, change creative intent or overwrite approved work need explicit consent.</p></div><div><small data-zh="保留">Preservation</small><h3 data-zh="保留已经可行的部分。">Keep what already works.</h3><p data-zh="让人锁定已经满意的部分、只改局部，而不是为了修一个问题就把全部重新生成。">Let people lock approved elements and revise locally, instead of regenerating everything to fix one problem.</p></div><div><small data-zh="判断">Judgment</small><h3 data-zh="把重要的选择交还给人。">Return the choices that matter.</h3><p data-zh="只把少数真正塑造作品的决定交给人，比如开场、节奏、基调和结尾，而不是让人盯着每一步。">Surface the few decisions that shape the work, such as the opening, pacing, tone and ending, rather than asking people to supervise every step.</p></div></div><blockquote data-zh="AI 一路替人省去决定，直到某个决定值得由人来做。">AI removes decisions until a decision becomes worth making.</blockquote></div></div></section>
+<section id="beyond" class="sec dark" data-clip="6"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">04:02</span><span class="nm" data-zh="视频之外">Beyond video</span></div></div><div class="main"><h2 data-zh="每一款产品，都在决定 AI 该走多远。">Every product is now deciding how far AI should go.</h2><p data-zh="同样的问题，如今贯穿整个科技行业。各个团队都在决定，自己的产品里哪些部分交给 AI，而默认答案往往是越多越好。">The same question now runs through the technology industry. Teams are choosing which parts of their products AI should handle, and the default is often as much as possible.</p><p data-zh="设想一个帮人寻找心理治疗师的平台。它可以先加上 AI 搜索，再加一个推荐治疗师的聊天机器人，然后让它在人们等待时回应他们，包括正处于痛苦中的人。每一步在技术上都不难。更难的问题是：系统应该在哪里停下，把这个人交给另一个人。">Consider a platform that helps people find a therapist. It could add AI search. Then a chatbot that recommends a therapist. Then one that answers people while they wait, including people in distress. Each step is technically easy. The harder question is where the system should stop and hand the person to another person.</p><div class="compare"><div class="crow chead"><b></b><span data-zh="在视频剪辑中">In a video edit</span><span data-zh="在心理健康照护中">In mental health care</span></div><div class="crow"><b data-zh="利害">Stakes</b><span class="v" data-zh="剪得差一点，可以重来">A weaker cut, which can be redone</span><span class="c" data-zh="漏掉一个危险信号，或把人引向不合适的帮助">A missed sign of risk, or a referral to the wrong kind of help</span></div><div class="crow"><b data-zh="可修改性">Editability</b><span class="v" data-zh="改掉一个片段，保留其余部分">Revise one clip and keep the rest</span><span class="c" data-zh="说出口的对话无法撤回">A conversation cannot be taken back</span></div><div class="crow"><b data-zh="意图">Intent</b><span class="v" data-zh="创作者的节奏、表达和风格">The creator’s pacing, voice and style</span><span class="c" data-zh="一个人对自己的生活和关系所做的决定">A person’s own decisions about their life and relationships</span></div><div class="crow"><b data-zh="授权">Authority</b><span class="v" data-zh="这次修改是我同意的吗？">Did I approve this edit?</span><span class="c" data-zh="我同意分享这些了吗？谁会看到？">Did I agree to share this, and who will see it?</span></div></div><p data-zh="四个条件依然适用，只是代价更高。在视频里，这条界线守护的是作者身份；在照护中，它守护的是人。这也是我带进拥心的原则：AI 可以接住人、帮人理清思路，但在关键时刻要停下，把人交给对的人。">The four conditions still apply, with more at stake. In video, the boundary protects authorship. In care, it protects people. This is the principle I carried into MoodOwn: AI can meet people and help them think, but at the moments that matter it should stop and connect them with a person.</p><a class="go" href="https://moodown.vercel.app/" target="_blank" rel="noopener" data-zh="探索拥心 ↗">Explore MoodOwn ↗</a></div></div></section>
+<section id="loop" class="sec " data-clip="7"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">04:50</span><span class="nm" data-zh="我自己的工作">In my own work</span></div></div><div class="main"><h2 data-zh="在我自己的工作里，这条界线也一直在移动。">I have been moving the boundary in my own work, too.</h2><p data-zh="当我开始做软件，这个问题也跟了过来。每做一个项目，我的答案都在变化。">When I began to build software, the question came with me. My answer has changed with each project.</p><ol class="loop"><li><b data-zh="全部交给 AI">Handing it all to AI</b><p data-zh="我的第一个应用《留一点》几乎完全由 AI 搭建。它能运行，却是个黑盒子：我修不了它，也无法判断它是否安全。">My first app, Leave1%, was built almost entirely by AI. It ran, but it was a black box: I could not fix it or tell whether it was safe.</p></li><li><b data-zh="只能“抽卡”">Generating, not directing</b><p data-zh="后来我想借 AI 设计界面，却只能一遍遍重新生成，没法真正指挥它。我开始追问：哪些决定，我想拿回自己手里？这个问题，就成了这项研究。">When I tried to design an interface with AI, I could regenerate it again and again, but I could not direct it. I began asking which decisions I wanted back. That question became this study.</p></li><li><b data-zh="向 AI 学，与 AI 一起创作">Learning from AI, creating with AI</b><p data-zh="做《入梦星空》时，构想和设计出自我自己。AI 帮我规划架构，教我一步步把它搭起来。我们一起审核代码，看不懂的地方我就让它讲给我听。有一个程序错误它始终修不好，最后是我自己找到了解法。">On Into the Stars, the concept and the design were mine. AI helped me plan the architecture and taught me to build it. We reviewed the code together, and I asked it to explain what I could not yet read. When it could not fix one bug, I found the fix myself.</p></li><li><b data-zh="与 AI 共事，始终在场">Working with AI, staying in the loop</b><p data-zh="现在，我想打下真正扎实的技术功底，才能和 AI 组成团队：引导它，检验它的工作，始终在场，而创意、初心和对世界的热爱，始终属于我自己。">Now I want real technical depth, so that I can work with AI as a team: guide it, check its work and stay in the loop, while the ideas, the purpose and my love of the world remain my own.</p></li></ol><p class="pull" data-zh="AI 应该止步何处，并不是一条固定的线。它随着人的成长而移动，也应当由人自己来决定。">Where AI should stop is not a fixed line. It moves as people learn, and it should move by their choice.</p><p class="after" data-zh="这也是我重返计算机科学的原因。">That is why I am returning to computer science.</p></div></div></section>
+<section id="sources" class="sec " data-clip="8"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">05:36</span><span class="nm" data-zh="资料来源">Sources</span></div></div><div class="main"><h2 data-zh="部分资料来源">Selected sources</h2><p class="fine" data-zh="视频研究所依据的代表性公开资料。">Representative public sources behind the video study.</p><div class="sources"><div class="source"><div class="stype" data-zh="创作者讨论">Creator discussion</div><div><a href="https://www.reddit.com/r/VideoEditors/comments/1o31lvt/ai_video_generation_vs_traditional_editing_whats/" target="_blank" rel="noopener">r/VideoEditors — “AI video generation vs traditional editing” ↗</a><div class="srcnote" data-zh="剪辑师讨论自动化、节奏、导演意图，以及 AI 与人如何分工。">Editors on automation, pacing, direction, and how work splits between AI and people.</div></div></div><div class="source"><div class="stype" data-zh="行业视角">Industry framing</div><div><a href="https://www.adobe.com/in/products/firefly/discover/ai-video-creation-vs-traditional-editing.html" target="_blank" rel="noopener">Adobe Firefly — AI video generation vs traditional editing ↗</a><div class="srcnote" data-zh="一家厂商对速度、规模、精确度与创作控制的阐述。">A vendor’s framing of speed, scale, precision and creative control.</div></div></div><div class="source"><div class="stype" data-zh="亲身工作流记录">First-person workflow</div><div><a href="https://medium.com/@piponsarna/i-used-an-ai-powered-video-editor-to-cut-my-editing-time-by-80-3a3e797648f9" target="_blank" rel="noopener">Medium — “I Used an AI-Powered Video Editor to Cut My Editing Time by 80%” ↗</a><div class="srcnote" data-zh="大量任务交给自动化，节奏和最终决定仍由创作者掌握。">Heavy automation of tasks, with pacing and the final call kept by the creator.</div></div></div><div class="source"><div class="stype" data-zh="反例">Counterexample</div><div><a href="https://www.dailycardinal.com/article/2025/11/i-let-chatgpt-make-all-my-decisions-for-a-day" target="_blank" rel="noopener">The Daily Cardinal — “I let ChatGPT make all my decisions for a day” ↗</a><div class="srcnote" data-zh="交出决定也可能让人感到轻松，即使作者之后又把决定收了回来。">Handing over decisions can feel like relief, even when the writer later takes them back.</div></div></div><div class="source"><div class="stype" data-zh="工具演示">Tool demonstration</div><div><a href="https://www.youtube.com/watch?v=iWOF6rhcPCA" target="_blank" rel="noopener">YouTube — “This Autocut AI Editing Tool Saved Me Hours” ↗</a><div class="srcnote" data-zh="一位创作者把 AI 自动化介绍为节省剪辑时间的方法。">A creator presenting AI automation as a way to cut editing time.</div></div></div></div></div></div></section>
+<footer data-zh="安玥的独立探索性研究。2026 年 8 月初稿，2026 年 11 月修订。">Independent exploratory research by Angela Sun. First written in August 2026, revised in November 2026.</footer>
+<nav class="scrub" aria-label="Sections"><div class="seg"><a href="#prologue"><span data-zh="序">Prologue</span></a><a href="#question"><span data-zh="问题">Question</span></a><a href="#finding"><span data-zh="发现">Finding</span></a><a href="#boundary"><span data-zh="边界">Boundary</span></a><a href="#handoff"><span data-zh="交接">Handoff</span></a><a href="#implications"><span data-zh="启示">Implications</span></a><a href="#beyond"><span data-zh="视频之外">Beyond video</span></a><a href="#loop"><span data-zh="我的工作">My work</span></a><a href="#sources"><span data-zh="来源">Sources</span></a></div><i id="head" aria-hidden="true"></i></nav>
+<script>(function(){
+ /* sky: drifting dusk clouds from value noise */
+ var cv=document.getElementById('sky'),ctx=cv.getContext('2d'),W=200,H=112;cv.width=W;cv.height=H;
+ var img=ctx.createImageData(W,H),P=[];for(var i=0;i<512;i++)P[i]=Math.random();
+ function h(x,y){return P[((x*73856093)^(y*19349663))>>>0&511]}
+ function sm(t){return t*t*(3-2*t)}
+ function n2(x,y){var xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,u=sm(xf),v=sm(yf);
+  return (h(xi,yi)*(1-u)+h(xi+1,yi)*u)*(1-v)+(h(xi,yi+1)*(1-u)+h(xi+1,yi+1)*u)*v}
+ function fbm(x,y){return n2(x,y)*.55+n2(x*2.1,y*2.1)*.27+n2(x*4.3,y*4.3)*.13+n2(x*8.7,y*8.7)*.05}
+ var top=[26,34,68],mid=[78,74,124],low=[226,150,118];
+ function mix(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]}
+ function frame(t){var d=img.data,k=0;
+  for(var y=0;y<H;y++){var gy=y/H,base=gy<.55?mix(top,mid,gy/.55):mix(mid,low,(gy-.55)/.45);
+   for(var x=0;x<W;x++){var c=fbm(x/38+t*.018,y/26+t*.004);c=Math.max(0,(c-.46)*2.4);c=Math.min(1,c)*(.35+gy*.55);
+    var tint=gy>.5?[255,214,190]:[205,205,235];
+    d[k++]=base[0]+(tint[0]-base[0])*c;d[k++]=base[1]+(tint[1]-base[1])*c;d[k++]=base[2]+(tint[2]-base[2])*c;d[k++]=255}}
+  ctx.putImageData(img,0,0)}
+ cv.style.imageRendering='auto';
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,t0=performance.now(),last=0,tc=document.getElementById('tcode'),vis=true;
+ if('IntersectionObserver'in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(cv);
+ function pad(n){return(n<10?'0':'')+n}
+ function loop(now){var s=(now-t0)/1000;
+  if(vis&&now-last>66){last=now;frame(s);var f=Math.floor(s*24);tc.textContent=pad(Math.floor(f/86400))+':'+pad(Math.floor(f/1440)%60)+':'+pad(Math.floor(f/24)%60)+':'+pad(f%24)}
+  requestAnimationFrame(loop)}
+ frame(0);if(!still)requestAnimationFrame(loop);
+ /* scrubber */
+ var nav=document.querySelector('.scrub'),head=document.getElementById('head'),links=[].slice.call(document.querySelectorAll('.seg a')),
+     secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))}),hero=document.querySelector('.hero');
+ function onScroll(){var y=scrollY,vh=innerHeight;nav.classList.toggle('on',y>hero.offsetHeight*.6);
+  var cur=0;for(var i=0;i<secs.length;i++){if(secs[i].offsetTop-vh*.4<=y)cur=i}
+  var s=secs[cur],next=secs[cur+1],start=s.offsetTop,end=next?next.offsetTop:document.documentElement.scrollHeight-vh;
+  var p=Math.min(1,Math.max(0,(y+vh*.4-start)/Math.max(1,end-start)));
+  var a=links[cur];head.style.left=(a.offsetLeft+a.offsetWidth*p)+'px';
+  links.forEach(function(l,i){l.classList.toggle('cur',i===cur)})}
+ addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+ /* language */
+ var btn=document.getElementById('lang'),els=document.querySelectorAll('[data-zh]'),zh=false,meta=document.querySelector('meta[name="description"]'),enDesc=meta.content;
+ [].forEach.call(els,function(e){e._en=e.tagName==='TITLE'?e.textContent:e.innerHTML});
+ function set(on){zh=on;document.documentElement.lang=on?'zh-CN':'en';
+  [].forEach.call(els,function(e){var v=on?e.getAttribute('data-zh'):e._en;if(e.tagName==='TITLE')e.textContent=v;else e.innerHTML=v});
+  meta.content=on?'人工智能应该止步何处？从视频剪辑出发，追问 AI 与人的判断之间的界线。':enDesc;
+  btn.textContent=on?'EN':'中文';btn.setAttribute('lang',on?'en':'zh-CN');btn.setAttribute('aria-label',on?'Switch to English':'切换到中文');
+  try{localStorage.setItem('wsas-lang',on?'zh':'en')}catch(_){};onScroll()}
+ btn.addEventListener('click',function(){set(!zh)});
+ try{if(localStorage.getItem('wsas-lang')==='zh')set(true)}catch(_){}
+})();
+</script>
+</body></html>
