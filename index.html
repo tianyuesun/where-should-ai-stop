@@ -199,10 +199,25 @@ footer{font-size:15.5px}
 .main>p.pull{font-size:clamp(26px,3.4vw,42px);line-height:1.18}
 .legend{flex-wrap:wrap;row-gap:8px}
 @media(max-width:820px){.wrap{grid-template-columns:minmax(0,1fr)}.clips{grid-template-columns:repeat(2,minmax(0,1fr))}.legend{margin-left:0}.track .lane{display:none}}
+/* hero: smaller title, focus frame instead of cross */
+.hero h1{font-size:clamp(46px,6.6vw,100px)}
+html:lang(zh-CN) .hero h1{font-size:clamp(42px,6vw,88px)}
+.vf .af{position:absolute;left:50%;top:50%;width:54px;height:38px;margin:-19px 0 0 -27px;
+ background:
+ linear-gradient(#fff,#fff) left top/9px 1.5px no-repeat,linear-gradient(#fff,#fff) left top/1.5px 9px no-repeat,
+ linear-gradient(#fff,#fff) right top/9px 1.5px no-repeat,linear-gradient(#fff,#fff) right top/1.5px 9px no-repeat,
+ linear-gradient(#fff,#fff) left bottom/9px 1.5px no-repeat,linear-gradient(#fff,#fff) left bottom/1.5px 9px no-repeat,
+ linear-gradient(#fff,#fff) right bottom/9px 1.5px no-repeat,linear-gradient(#fff,#fff) right bottom/1.5px 9px no-repeat;opacity:.7}
+/* sunset sea */
+.hero{background:linear-gradient(#262E60,#685C9C 38%,#E8967F 60%,#ECA07C 63%,#525082 85%,#222852)}
+.hero h1{font-size:clamp(52px,7.2vw,112px);text-shadow:0 2px 24px rgba(14,19,34,.35)}
+html:lang(zh-CN) .hero h1{font-size:clamp(46px,6.6vw,96px)}
+.deck{text-shadow:0 1px 14px rgba(14,19,34,.45)}
+@media(max-width:480px){html:lang(zh-CN) .hero h1{font-size:40px}.hero h1{font-size:50px}}
 </style>
 </head>
 <body>
-<header class="hero" id="top"><canvas id="sky" aria-hidden="true"></canvas><div class="vf" aria-hidden="true"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i><i class="cross"></i></div><div class="hbar"><span class="hk" data-zh="探索性研究">Exploratory research</span><button id="lang" type="button" lang="zh-CN" aria-label="切换到中文">中文</button></div><div class="htxt"><h1 data-zh="人工智能&lt;br&gt;应该止步何处？">Where should<br>AI stop?</h1><p class="deck" data-zh="随着 AI 承担越来越多的工作，哪些决定应当留给人？我从视频剪辑开始，因为正是在剪辑里，我第一次明白一个剪辑点里藏着多少判断，然后顺着这个问题一路追问下去。">As AI takes on more of the work, which decisions should stay with people? I began with video editing, where I first learned how much judgment sits inside a single cut, and followed the question outward.</p></div><div class="hfoot" aria-hidden="true"><span id="tcode">00:00:00:00</span><span>24 fps</span></div></header>
+<header class="hero" id="top"><canvas id="sky" aria-hidden="true"></canvas><div class="vf" aria-hidden="true"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i><i class="af"></i></div><div class="hbar"><span class="hk" data-zh="探索性研究">Exploratory research</span><button id="lang" type="button" lang="zh-CN" aria-label="切换到中文">中文</button></div><div class="htxt"><h1 data-zh="人工智能&lt;br&gt;应该止步何处？">Where should<br>AI stop?</h1><p class="deck" data-zh="随着 AI 承担越来越多的工作，哪些决定应当留给人？我从视频剪辑开始，因为正是在剪辑里，我第一次明白一个剪辑点里藏着多少判断，然后顺着这个问题一路追问下去。">As AI takes on more of the work, which decisions should stay with people? I began with video editing, where I first learned how much judgment sits inside a single cut, and followed the question outward.</p></div><div class="hfoot" aria-hidden="true"><span id="tcode">00:00:00:00</span><span>24 fps</span></div></header>
 <section id="prologue" class="sec " data-clip="0"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">00:00</span><span class="nm" data-zh="序">Prologue</span></div></div><div class="main"><h2 data-zh="我是通过镜头走到这个问题面前的。">I came to this question through a camera.</h2><p data-zh="在写代码之前，我先学会了做影像。大学时我拍舞蹈和戏剧，研究生读传媒，在纽约 THIRTEEN/WNET 做了九个月制作，在腾讯视频工作了三个月，还自编自导了短片《It’s Just a Cold》，讲一个大学生把抑郁当成了一场普通的感冒。片中的歌《与自己对话》也是我写的，后来以艺名安玥在 QQ 音乐发表。">Before I wrote code, I made images. I photographed dance and theatre in college, studied media in graduate school, worked in production for nine months at THIRTEEN/WNET in New York and for three months at Tencent Video, and wrote and directed a short film, <i>It’s Just a Cold</i>, about a college student who mistakes depression for a passing cold. I also wrote its song, “与自己对话” (Speaking to Myself), later released on QQ Music under my artist name, 安玥.</p><p class="lead" data-zh="剪辑让我明白，一个剪辑点里藏着多少判断：镜头从哪里开始，一段沉默停留多久，观众最先看到什么。当 AI 开始替人下这些剪刀，我想知道，其中哪些决定，人们仍然想亲手来做。">Editing taught me how many judgments sit inside one cut: where a shot begins, how long a silence holds, what the audience sees first. When AI began to make those cuts, I wanted to know which of them people would still want to make themselves.</p><ol class="layers"><li><a href="#question"><b data-zh="在一条工作流里">In a workflow</b><span data-zh="AI 剪辑视频时，人们想留住哪些创作决定">Which creative decisions people keep when AI edits video</span></a></li><li><a href="#beyond"><b data-zh="在所有产品里">Across products</b><span data-zh="当关乎的是人，AI 应该走多远">How far AI should go when the stakes are human</span></a></li><li><a href="#loop"><b data-zh="在我自己的工作里">In my own work</b><span data-zh="从全部交给 AI，到始终在场">From handing everything to AI to staying in the loop</span></a></li></ol></div></div></section>
 <section id="question" class="sec " data-clip="1"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">00:12</span><span class="nm" data-zh="问题">Question</span></div></div><div class="main"><h2 data-zh="自动化减少的不只是工作，也可能是决定。">Automation removes work. It can also remove decisions.</h2><p data-zh="生成式视频工具如今已经能转写、清理音频、拼出粗剪，甚至生成整段画面。在关于这些工具的公开讨论中，创作者欢迎 AI 接手重复性的执行工作，却在节奏、表达、叙事、风格和最终决定上划出了更清晰的界线。">Generative video tools can now transcribe, clean up audio, assemble a rough cut and generate whole scenes. In public discussions of these tools, creators welcomed help with repetitive execution. They drew firmer lines around pacing, voice, story, style and the final call.</p><div class="chips"><span class="chip" data-zh="创作者讨论">Creator discussions</span><span class="chip" data-zh="亲身工作流记录">First-person workflows</span><span class="chip" data-zh="行业视角">Industry framing</span><span class="chip" data-zh="反例">Counterexamples</span></div><p class="fine" data-zh="这是一项基于公开资料的探索性综合分析，并非具有代表性的样本。它的发现是有待一手研究检验的假设。">An exploratory synthesis of public material, not a representative sample. Its findings are hypotheses to test with primary research.</p></div></div></section>
 <section id="finding" class="sec dark" data-clip="2"><div class="wrap"><div class="side"><div class="lbl"><span class="tc">01:04</span><span class="nm" data-zh="发现">Finding</span></div></div><div class="main"><h2 data-zh="人们很愿意把&lt;em&gt;执行&lt;/em&gt;交给 AI，&lt;br&gt;但交出&lt;em&gt;判断&lt;/em&gt;时，会谨慎得多。">People readily delegate <em>effort</em>. They are more selective about delegating <em>judgment</em>.</h2><p data-zh="界线落在哪里，与其说取决于 AI 做了多少，不如说取决于它替人做了什么。">Where the line falls depends less on how much work AI does than on what kind of work it takes over.</p><div class="tline" role="img" aria-label="Eight editing tasks on a timeline. The first four are commonly delegated to AI; the last four people prefer to keep."><div class="ruler" aria-hidden="true"></div><div class="track"><span class="lane" aria-hidden="true">V1</span><div class="clips"><span class="clip ai" data-zh="转写">Transcribe</span><span class="clip ai" data-zh="清理音频">Clean audio</span><span class="clip ai" data-zh="删除口头语">Remove filler</span><span class="clip ai" data-zh="粗剪">Rough cut</span><span class="clip hu" data-zh="选择开场">Choose opening</span><span class="clip hu" data-zh="把握节奏">Shape pacing</span><span class="clip hu" data-zh="确定基调">Set tone</span><span class="clip hu" data-zh="最终决定">Final call</span><i class="cut" aria-hidden="true"></i></div></div><div class="legend"><span class="k ai" data-zh="乐于交给 AI">Readily handed to AI</span><span class="k hu" data-zh="留给人来判断">Kept for human judgment</span></div></div></div></div></section>
@@ -216,20 +231,36 @@ footer{font-size:15.5px}
 <nav class="scrub" aria-label="Sections"><div class="seg"><a href="#prologue"><span data-zh="序">Prologue</span></a><a href="#question"><span data-zh="问题">Question</span></a><a href="#finding"><span data-zh="发现">Finding</span></a><a href="#boundary"><span data-zh="边界">Boundary</span></a><a href="#handoff"><span data-zh="交接">Handoff</span></a><a href="#implications"><span data-zh="启示">Implications</span></a><a href="#beyond"><span data-zh="视频之外">Beyond video</span></a><a href="#loop"><span data-zh="我的工作">My work</span></a><a href="#sources"><span data-zh="来源">Sources</span></a></div><i id="head" aria-hidden="true"></i></nav>
 <script>(function(){
  /* sky: drifting dusk clouds from value noise */
- var cv=document.getElementById('sky'),ctx=cv.getContext('2d'),W=200,H=112;cv.width=W;cv.height=H;
- var img=ctx.createImageData(W,H),P=[];for(var i=0;i<512;i++)P[i]=Math.random();
+ var cv=document.getElementById('sky'),ctx=cv.getContext('2d'),W=256,H=144,img,SX=.7;
+ function size(){var r=cv.getBoundingClientRect(),ar=(r.width||16)/(r.height||9);W=Math.max(60,Math.round(Math.sqrt(40000*ar)));H=Math.max(60,Math.round(W/ar));cv.width=W;cv.height=H;img=ctx.createImageData(W,H);SX=ar<1?.8:.7}
+ size();addEventListener('resize',function(){size();frame(lastT||0)});var lastT=0,P=[];for(var i=0;i<512;i++)P[i]=Math.random();
  function h(x,y){return P[((x*73856093)^(y*19349663))>>>0&511]}
  function sm(t){return t*t*(3-2*t)}
  function n2(x,y){var xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,u=sm(xf),v=sm(yf);
   return (h(xi,yi)*(1-u)+h(xi+1,yi)*u)*(1-v)+(h(xi,yi+1)*(1-u)+h(xi+1,yi+1)*u)*v}
  function fbm(x,y){return n2(x,y)*.55+n2(x*2.1,y*2.1)*.27+n2(x*4.3,y*4.3)*.13+n2(x*8.7,y*8.7)*.05}
- var top=[26,34,68],mid=[78,74,124],low=[226,150,118];
+ var HZ=.63;
  function mix(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]}
- function frame(t){var d=img.data,k=0;
-  for(var y=0;y<H;y++){var gy=y/H,base=gy<.55?mix(top,mid,gy/.55):mix(mid,low,(gy-.55)/.45);
-   for(var x=0;x<W;x++){var c=fbm(x/38+t*.018,y/26+t*.004);c=Math.max(0,(c-.46)*2.4);c=Math.min(1,c)*(.35+gy*.55);
-    var tint=gy>.5?[255,214,190]:[205,205,235];
-    d[k++]=base[0]+(tint[0]-base[0])*c;d[k++]=base[1]+(tint[1]-base[1])*c;d[k++]=base[2]+(tint[2]-base[2])*c;d[k++]=255}}
+ function ramp(stops,t){for(var i=1;i<stops.length;i++){if(t<=stops[i][0]){var a=stops[i-1],b=stops[i];return mix(a[1],b[1],(t-a[0])/(b[0]-a[0]))}}return stops[stops.length-1][1]}
+ var SKY=[[0,[38,46,96]],[.38,[104,92,156]],[.72,[232,150,128]],[1,[255,206,150]]];
+ var SEA=[[0,[236,160,124]],[.25,[170,118,140]],[.6,[82,78,130]],[1,[34,40,82]]];
+ function frame(t){lastT=t;var d=img.data,k=0,sy=HZ-.075,sr=.07;
+  for(var y=0;y<H;y++){var gy=y/H;
+   for(var x=0;x<W;x++){var gx=x/W,c;
+    if(gy<HZ){var ty=gy/HZ;c=ramp(SKY,ty);
+     var dx=(gx-SX)*W/H,dy=gy-sy,dist=Math.sqrt(dx*dx+dy*dy);
+     var glow=Math.exp(-dist*dist/.05)*.55+Math.exp(-dist*dist/.006)*.5;c=mix(c,[255,226,170],Math.min(1,glow));
+     if(dist<sr)c=mix(c,[255,244,214],Math.min(1,(sr-dist)/.012));
+     var cl=fbm(x/34+t*.015,y/18+t*.003);cl=Math.max(0,(cl-.5)*2.6);cl=Math.min(1,cl)*(.25+ty*.5);
+     c=mix(c,ty>.55?[255,200,170]:[214,196,232],cl);
+    }else{var ts=(gy-HZ)/(1-HZ);c=ramp(SEA,ts);
+     var w=n2(x/9,(y*3.2)-t*1.2)*.6+n2(x/3.5,y*6-t*2)*.4;
+     var col=Math.exp(-Math.pow((gx-SX)*W/H/(.06+ts*.22),2));
+     var sh=Math.max(0,w-.42)*2.2*col*(1-ts*.6);c=mix(c,[255,226,176],Math.min(1,sh));
+     var ln=Math.max(0,w-.62)*1.6*(1-ts);c=mix(c,[250,214,196],Math.min(.35,ln*.5));
+    }
+    var vg=Math.max(0,.5-gx)*.5;c=mix(c,[14,19,34],vg);
+    d[k++]=c[0];d[k++]=c[1];d[k++]=c[2];d[k++]=255}}
   ctx.putImageData(img,0,0)}
  cv.style.imageRendering='auto';
  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,t0=performance.now(),last=0,tc=document.getElementById('tcode'),vis=true;
